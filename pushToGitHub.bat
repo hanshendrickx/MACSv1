@@ -265,26 +265,34 @@ echo 📁 All tracked files being pushed:
 git ls-files | findstr /v ".git"
 
 REM Push to GitHub
-git push -u origin %current_branch%
+echo 🚀 Force pushing all files to ensure complete upload...
+git push --force -u origin %current_branch%
 if errorlevel 1 (
     echo.
-    echo ❌ Push failed! Common solutions:
+    echo ❌ Push failed! Trying alternative push methods...
     echo.
-    echo 🔐 Authentication issues:
-    echo    - Use Personal Access Token instead of password
-    echo    - GitHub Settings → Developer settings → Personal access tokens
-    echo    - Or set up SSH keys
-    echo.
-    echo 🌿 Branch issues:
-    echo    - Repository might be empty (first push)
-    echo    - Try: git push -u origin %current_branch% --force
-    echo.
-    echo 🔗 Remote issues:
-    echo    - Check repository URL is correct
-    echo    - Verify repository exists on GitHub
-    echo.
-    pause
-    exit /b 1
+    echo 🔄 Attempting force push with all refs...
+    git push --force --all origin
+    if errorlevel 1 (
+        echo.
+        echo ❌ All push methods failed! Common solutions:
+        echo.
+        echo 🔐 Authentication issues:
+        echo    - Use Personal Access Token instead of password
+        echo    - GitHub Settings → Developer settings → Personal access tokens
+        echo    - Or set up SSH keys
+        echo.
+        echo 🌿 Branch issues:
+        echo    - Repository might be empty (first push)
+        echo    - Try: git push -u origin %current_branch% --force
+        echo.
+        echo 🔗 Remote issues:
+        echo    - Check repository URL is correct
+        echo    - Verify repository exists on GitHub
+        echo.
+        pause
+        exit /b 1
+    )
 )
 
 echo.
@@ -295,6 +303,16 @@ echo 🌐 Repository: https://github.com/hanshendrickx/MACSv1.git
 echo 🛡️ Sensitive data excluded by .gitignore
 echo 📦 Ready for collaboration and deployment
 echo 🔒 Repository is private - perfect for development!
+echo.
+echo 🔍 Verifying upload - check these files on GitHub:
+echo    ✅ main.py (Medical application)
+echo    ✅ README.md (Professional docs)
+echo    ✅ security_manager.py (Security system)
+echo    ✅ feature_manager.py (Feature gating)
+echo    ✅ UX/ folder (Design system)
+echo.
+echo 💡 If files don't appear, wait 30 seconds and refresh GitHub page
+echo 🌐 Direct link: https://github.com/hanshendrickx/MACSv1
 echo.
 
 pause
