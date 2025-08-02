@@ -177,6 +177,11 @@ if errorlevel 1 (
     exit /b 1
 )
 
+REM Show all files in repository
+echo.
+echo 📂 Files in repository:
+git ls-files
+
 REM Add files (respecting .gitignore)
 echo.
 echo 📦 Adding files to Git (excluding sensitive data)...
@@ -253,6 +258,11 @@ echo.
 echo 🚀 Pushing to GitHub...
 echo Branch: %current_branch%
 echo Remote: origin
+
+REM Show what files will be pushed
+echo.
+echo 📁 All tracked files being pushed:
+git ls-files | findstr /v ".git"
 
 REM Push to GitHub
 git push -u origin %current_branch%
