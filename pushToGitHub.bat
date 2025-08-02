@@ -226,7 +226,23 @@ if errorlevel 1 (
     )
 ) else (
     echo ✅ GitHub remote already configured
-    for /f "tokens=*" %%i in ('git remote get-url origin') do echo    URL: %%i
+    for /f "tokens=*" %%i in ('git remote get-url origin') do echo    Current URL: %%i
+    
+    REM Check if we need to update the remote URL to the shorter version
+    git remote get-url origin | find "MACSv1.git" >nul
+    if errorlevel 1 (
+        echo 🔄 Updating remote URL to shorter version...
+        git remote set-url origin https://github.com/hanshendrickx/MACSv1.git
+        if errorlevel 1 (
+            echo ❌ Failed to update remote URL
+            pause
+            exit /b 1
+        ) else (
+            echo ✅ Remote URL updated to: https://github.com/hanshendrickx/MACSv1.git
+        )
+    ) else (
+        echo ✅ Remote URL already correct
+    )
 )
 
 REM Get current branch
