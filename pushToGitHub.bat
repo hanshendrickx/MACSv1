@@ -280,9 +280,10 @@ if errorlevel 1 (
     echo ========================================
     echo ✅ SUCCESS! MACS pushed to GitHub
     echo ========================================
-    echo 🌐 Your secure medical application is now backed up!
+    echo 🌐 Repository: https://github.com/hanshendrickx/MACSv1.git
     echo 🛡️ Sensitive data excluded by .gitignore
     echo 📦 Ready for collaboration and deployment
+    echo 🔒 Repository is private - perfect for development!
     echo.
 )
 
